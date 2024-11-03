@@ -75,14 +75,16 @@ class PayChanguClient:
             response = requests.get(url, headers=self.client.headers)
             return handle_response(response)
 
-        def initialize_payment(self, amount: int, currency: str, mobile_number: str, network: str, reference: str):
+        def initialize_payment(self, mobile: str, mobile_money_operator_ref_id: str, amount: str, charge_id: str, email: str = None, first_name: str = None, last_name: str = None):
             url = f"{PayChanguClient.BASE_URL}/mobile-money/payments/initialize"
             payload = {
+                "mobile": mobile,
+                "mobile_money_operator_ref_id": mobile_money_operator_ref_id,
                 "amount": amount,
-                "currency": currency,
-                "mobile_number": mobile_number,
-                "network": network,
-                "reference": reference,
+                "charge_id": charge_id,
+                "email": email,
+                "first_name": first_name,
+                "last_name": last_name,
             }
             response = requests.post(url, json=payload, headers=self.client.headers)
             return handle_response(response)
